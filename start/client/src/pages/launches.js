@@ -3,25 +3,32 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Loading, Header, LaunchTile, Button } from '../components'
 
+export const LAUNCH_TILE_DATA = gql`
+  fragment LaunchTile on Launch {
+    id
+    isBooked
+    rocket {
+      id
+      name
+    }
+    mission {
+      name
+      missionPatch
+    }
+  }
+`
+
 const GET_LAUNCHES = gql`
   query launchList($after: String) {
     launches(after: $after) {
       cursor
       hasMore
       launches {
-        id
-        isBooked
-        rocket {
-          id
-          name
-        }
-        mission {
-          name
-          missionPatch
-        }
+        ...LaunchTile
       }
     }
   }
+  ${LAUNCH_TILE_DATA}
 `
 
 export default function Launches() {
