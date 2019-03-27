@@ -7,9 +7,21 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 
 const cache = new InMemoryCache()
-const link = new HttpLink({ uri: 'https://fullstack-tutorial-server-bpmxvhumbk.now.sh/' })
+const link = new HttpLink({
+  uri: 'https://fullstack-tutorial-server-bpmxvhumbk.now.sh/',
+  headers: {
+    authorization: localStorage.getItem('token'),
+  },
+})
 
 const client = new ApolloClient({ cache, link })
+
+cache.writeData({
+  data: {
+    isLoggedIn: !!localStorage.getItem('token'),
+    cartItems: [],
+  },
+})
 
 ReactDOM.render(
   <ApolloProvider client={client}>
