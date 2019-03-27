@@ -49,6 +49,7 @@ module.exports = {
           launches[launches.length - 1].cursor !== allLaunches[allLaunches.length - 1].cursor,
       }
     },
+    me: async (_, __, { dataSources }) => dataSources.userAPI.findOrCreateUser(),
   },
   Mutation: {
     bookTrips: async (_parent, { launchIds }, { dataSources: { launchAPI, userAPI } }, _info) => {

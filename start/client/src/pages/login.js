@@ -20,7 +20,6 @@ export default () => (
           client.writeData({ data: { isLoggedIn: true } })
         }}
       >
-        $
         {(login, { loading, error }) => {
           if (loading) return <Loading />
           if (error) return <p>An error occurred</p>
